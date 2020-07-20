@@ -7,41 +7,40 @@
 </head>
 <body>
 
-
   <div class="keys">
-    <div data-key="81" class="key">
+    <div data-key="81" class="key" onClick="mouseClick(this)">
       <kbd>Q</kbd>
       <span class="sound">clap</span>
     </div>
-    <div data-key="83" class="key">
+    <div data-key="83" class="key" onClick="mouseClick(this)">
       <kbd>S</kbd>
       <span class="sound">hihat</span>
     </div>
-    <div data-key="68" class="key">
+    <div data-key="68" class="key" onClick="mouseClick(this)">
       <kbd>D</kbd>
       <span class="sound">kick</span>
     </div>
-    <div data-key="70" class="key">
+    <div data-key="70" class="key" onClick="mouseClick(this)">
       <kbd>F</kbd>
       <span class="sound">openhat</span>
     </div>
-    <div data-key="71" class="key">
+    <div data-key="71" class="key" onClick="mouseClick(this)">
       <kbd>G</kbd>
       <span class="sound">boom</span>
     </div>
-    <div data-key="72" class="key">
+    <div data-key="72" class="key" onClick="mouseClick(this)">
       <kbd>H</kbd>
       <span class="sound">ride</span>
     </div>
-    <div data-key="74" class="key">
+    <div data-key="74" class="key" onClick="mouseClick(this)">
       <kbd>J</kbd>
       <span class="sound">snare</span>
     </div>
-    <div data-key="75" class="key">
+    <div data-key="75" class="key" onClick="mouseClick(this)">
       <kbd>K</kbd>
       <span class="sound">tom</span>
     </div>
-    <div data-key="76" class="key">
+    <div data-key="76" class="key" onClick="mouseClick(this)">
       <kbd>L</kbd>
       <span class="sound">tink</span>
     </div>
@@ -64,6 +63,7 @@
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
     // selecting the div element that has the same data-key than the pressed key for styling
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+    console.log(key)
     if (!audio) return // stop the function when key doesn't correspond to an audio
     audio.currentTime = 0 // reset current time of an audio to 0 to prevent waiting time
     audio.play()
@@ -77,6 +77,17 @@
   window.addEventListener('keydown', playSound)
   const keys = document.querySelectorAll('.key')
   keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+
+  function mouseClick(elem) {
+
+    const key = elem
+    const key2 = elem.getAttribute("data-key")
+    const audio = document.querySelector(`audio[data-key="${key2}"]`)
+    if (!audio) return // stop the function when key doesn't correspond to an audio
+    audio.currentTime = 0 // reset current time of an audio to 0 to prevent waiting time
+    audio.play()
+    key.classList.add('playing')  // adding the playing class to the selected DIV
+  }
 
 </script>
 
