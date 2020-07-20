@@ -19,6 +19,7 @@ body,html {
 }
 
 .key {
+  cursor: pointer;
   border: .4rem solid black;
   border-radius: .5rem;
   margin: 1rem;
@@ -38,9 +39,16 @@ body,html {
   box-shadow: 0 0 1rem #ffc600;
 }
 
+.playing-mouse {
+  transform: scale(1.1);
+  border-color: red;
+  box-shadow: 0 0 1rem red;
+}
+
 kbd {
   display: block;
   font-size: 4rem;
+  user-select: none;
 }
 
 .sound {
@@ -48,4 +56,5 @@ kbd {
   text-transform: uppercase;
   letter-spacing: .1rem;
   color: #ffc600;
+  user-select: none;
 }

@@ -69,25 +69,26 @@
     audio.play()
     key.classList.add('playing')  // adding the playing class to the selected DIV
   }
-  function removeTransition(e) {
-    if (e.propertyName !== 'transform') return // skip if it's not a transform
-    this.classList.remove('playing') // remove the playing class from the playing element's div
-  }
-
-  window.addEventListener('keydown', playSound)
-  const keys = document.querySelectorAll('.key')
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition))
 
   function mouseClick(elem) {
-
     const key = elem
     const keyNumber = elem.getAttribute("data-key")
     const audio = document.querySelector(`audio[data-key="${keyNumber}"]`)
     if (!audio) return // stop the function when key doesn't correspond to an audio
     audio.currentTime = 0 // reset current time of an audio to 0 to prevent waiting time
     audio.play()
-    key.classList.add('playing')  // adding the playing class to the selected DIV
+    key.classList.add('playing-mouse')  // adding the playing-mouse class to the selected DIV
   }
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return // skip if it's not a transform
+    this.classList.remove('playing') // remove the playing class from the playing element's div
+    this.classList.remove('playing-mouse') // remove the playing-mouse class from the playing element's div
+  }
+
+  window.addEventListener('keydown', playSound)
+  const keys = document.querySelectorAll('.key')
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition))
 
 </script>
 
