@@ -8,10 +8,14 @@
 
 
     <div id="clock">
-      <div id="clock-face">
-        <div class="hand" id="hour-hand"></div>
-        <div class="hand" id="min-hand"></div>
-        <div class="hand" id="second-hand"></div>
+      <div id="hour">
+        <div class="hr" id="hr"></div>
+      </div>
+      <div id="min">
+        <div class="mn" id="mn"></div>
+      </div>
+      <div id="sec">
+        <div class="sc" id="sc"></div>
       </div>
     </div>
 
@@ -37,74 +41,108 @@
     #clock {
       width: 30rem;
       height: 30rem;
-      border: 20px solid white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      border: 20px solid #fff;
       border-radius: 50%;
       margin: 50px auto;
       position: relative;
       padding: 2rem;
       box-shadow:
-        0 0 0 4px rgba(0,0,0,0.1),
-        inset 0 0 0 3px #EFEFEF,
-        inset 0 0 10px black,
-        0 0 10px rgba(0,0,0,0.2);
+        inset 0 0 30px rgba(0,0,0,.1),
+        0 20px 20px rgba(0,0,0,.2),
+        0 0 0 4px rgb(255, 255, 255,1)
     }
 
-    #clock-face {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform: translateY(-3px); /* account for the height of the clock hands */
-    }
-
-    .hand {
-      width: 50%;
-      /* height: 6px;
-      background: black; */
+    #clock::before {
+      content: '';
       position: absolute;
-      top: 50%;
-      transform-origin: 100%;
-      transform: rotate(90deg);
-      transition: all 0.20s;
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      width: 15px;
+      height: 15px;
+      background: #848484;
+      border: 2px solid #fff;
+      z-index: 100000;
+      border-radius: 50%;
     }
 
-    #hour-hand {
-      height: 10px;
-      background: black;
+    #hour,
+    #min,
+    #sec {
+      position: absolute;
     }
 
-    #min-hand {
-      height: 6px;
-      background: black;
+    #hour, .hr {
+      width: 160px;
+      height: 160px;
     }
 
-    #second-hand {
-      height: 6px;
-      background: red;
+    #min, .mn {
+      width: 190px;
+      height: 190px;
+    }
+
+    #sec, .sc {
+      width: 230px;
+      height: 230px;
+    }
+
+    .hr, .mn, .sc {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .hr::before {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 80px;
+      background: #848484;
+      z-index: 10;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .mn::before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 90px;
+      background: #d6d6d6;
+      z-index: 11;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .sc::before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 150px;
+      background: #ff6767;
+      z-index: 12;
+      border-radius: 6px 6px 0 0;
     }
 
   </style>
 
   <script>
-    const secondHand = document.getElementById('second-hand')
-    const minuteHand = document.getElementById('min-hand')
-    const hourHand = document.getElementById('hour-hand')
+    const secondHand = document.querySelector("#sc")
+    const minuteHand = document.querySelector("#mn")
+    const hourHand = document.querySelector("#hr")
 
     function setDate() {
+      console.log(minuteHand)
       const now = new Date()
+      const deg = 6
+      const seconds = now.getSeconds() * deg
+      const mins = now.getMinutes() * deg
+      const hour = now.getHours() * 30
 
-      const seconds = now.getSeconds()
-      const secondsDegrees = ((seconds / 60) * 360) + 90
-      
-      const mins = now.getMinutes()
-      const minsDegrees = ((mins / 60) * 360) + 90
-
-      const hour = now.getHours()
-      const hoursDegrees = ((hour / 60) * 360) + 90
-
-      secondHand.style.transform = `rotate(${secondsDegrees}deg)`
-      minuteHand.style.transform = `rotate(${minsDegrees}deg)`
-      hourHand.style.transform = `rotate(${hoursDegrees}deg)`
+      secondHand.style.transform = `rotate(${seconds}deg)`
+      minuteHand.style.transform = `rotate(${mins}deg)`
+      hourHand.style.transform = `rotate(${hour}deg)`
     }
 
     setInterval(setDate, 1000)
